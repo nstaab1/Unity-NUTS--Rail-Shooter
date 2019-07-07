@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [Tooltip("In m/s")][SerializeField] float speed = 10f;
 
     [SerializeField] float positionPitchFactor = -5f;
-    [SerializeField] float positionYawFactor = 4f;
+    [SerializeField] float positionYawFactor = 6f;
     [SerializeField] float controlPitchFactor = -15f;
     [SerializeField] float controlRollFactor = -50f;
 
