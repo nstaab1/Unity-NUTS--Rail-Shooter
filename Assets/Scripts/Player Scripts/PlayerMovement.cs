@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
+
+    [Header("General Settings")]
     [SerializeField] float xRange = 8f;
     [SerializeField] float yRange = 5f;
-
     [Tooltip("In m/s")][SerializeField] float speed = 10f;
-
+    [Header("Position Settings")]
     [SerializeField] float positionPitchFactor = -5f;
     [SerializeField] float positionYawFactor = 6f;
+    [Header("Control Settings")]
     [SerializeField] float controlPitchFactor = -15f;
     [SerializeField] float controlRollFactor = -50f;
+
+    bool controlsDisabled = false;
 
     float xThrow, yThrow;
 
@@ -27,8 +31,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessTranslation();
-        ProcessRotation();
+        if (!controlsDisabled)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }   
     }
 
     private void ProcessTranslation()
@@ -38,7 +45,6 @@ public class Player : MonoBehaviour
 
         float xOffset = xThrow * speed * Time.deltaTime;
         float yOffset = yThrow * speed * Time.deltaTime;
-        print(yOffset);
 
         transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x + xOffset, -xRange, xRange), transform.localPosition.y, transform.localPosition.z);
         transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Clamp(transform.localPosition.y + yOffset, -yRange, yRange), transform.localPosition.z);
@@ -53,5 +59,10 @@ public class Player : MonoBehaviour
         float yaw = transform.localPosition.x * positionYawFactor;
         float roll = xThrow * controlRollFactor;
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+    void DisableControls() // Called by string refrence in CollisionHandler
+    {
+        controlsDisabled = true;
     }
 }
