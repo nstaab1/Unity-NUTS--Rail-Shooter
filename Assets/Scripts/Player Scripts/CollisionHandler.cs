@@ -36,10 +36,12 @@ public class CollisionHandler : MonoBehaviour
 
     private void StartDeathSequence()
     {
+        deathFX.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y, gameObject.transform.localPosition.z);
         print("Player Dying");
         SendMessage("DisableControls");
         propellerGameObject.SendMessage("StopPropeller");
         deathFX.SetActive(true);
+        gameObject.SetActive(false);
 
     }
 }
