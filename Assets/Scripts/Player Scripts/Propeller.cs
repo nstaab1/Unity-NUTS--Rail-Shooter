@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Propeller : MonoBehaviour
 {
+    [SerializeField] float propellerSpeed = -250f;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class Propeller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate(Vector3.back, 100f);
+        gameObject.transform.Rotate(Vector3.back, propellerSpeed);
     }
 }
