@@ -15,8 +15,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float positionPitchFactor = -5f;
     [SerializeField] float positionYawFactor = 6f;
     [Header("Control Settings")]
-    [SerializeField] float controlPitchFactor = -15f;
-    [SerializeField] float controlRollFactor = -50f;
+    [SerializeField] float controlPitchFactor = -8f;
+    [SerializeField] float controlRollFactor = -55f;
+    [SerializeField] GameObject[] guns;
+
+    AudioSource machineGun;
 
     bool controlsDisabled = false;
 
@@ -25,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        machineGun = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,8 +38,11 @@ public class PlayerMovement : MonoBehaviour
         {
             ProcessTranslation();
             ProcessRotation();
+            ProcessFiring();
         }   
     }
+
+    
 
     private void ProcessTranslation()
     {
@@ -59,6 +65,41 @@ public class PlayerMovement : MonoBehaviour
         float yaw = transform.localPosition.x * positionYawFactor;
         float roll = xThrow * controlRollFactor;
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+    private void ProcessFiring()
+    {
+        if(CrossPlatformInputManager.GetButton("Fire"))
+        {
+            ActivateGuns();
+            if(!machineGun.isPlaying)
+            {
+                machineGun.Play();
+            }
+            
+        } else
+        {
+            DeactivateGuns();
+            machineGun.Stop();
+        }
+    }
+
+    private void ActivateGuns()
+    {
+        foreach(GameObject gun in guns)
+        {
+            var emissionModule = gun.GetComponent<ParticleSystem>().emission;
+            emissionModule.enabled = true;
+        }
+    }
+
+    private void DeactivateGuns()
+    {
+        foreach (GameObject gun in guns)
+        {
+            var emissionModule = gun.GetComponent<ParticleSystem>().emission;
+            emissionModule.enabled = false;
+        }
     }
 
     void DisableControls() // Called by string refrence in CollisionHandler

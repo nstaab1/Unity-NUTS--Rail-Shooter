@@ -6,9 +6,12 @@ public class EnemyGeneric : MonoBehaviour
 {
 
     [SerializeField] GameObject deathFX;
+    [SerializeField] int hitPoints = 10;
     bool dying = false;
 
     int scorePerhit = 1;
+
+
     ScoreBoard scoreBoard;
     // Start is called before the first frame update
     void Start()
@@ -33,9 +36,13 @@ public class EnemyGeneric : MonoBehaviour
         if (!dying)
         {
             scoreBoard.ScoreHit(scorePerhit);
-            dying = true;
-            Instantiate(deathFX, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            hitPoints--;
+            if(hitPoints <=0)
+            {
+                dying = true;
+                Instantiate(deathFX, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
         }
         
     }
