@@ -35,10 +35,11 @@ public class EnemyGeneric : MonoBehaviour
     {
         if (!dying)
         {
-            scoreBoard.ScoreHit(scorePerhit);
+            
             hitPoints--;
             if(hitPoints <=0)
             {
+                scoreBoard.ScoreHit(scorePerhit);
                 dying = true;
                 Instantiate(deathFX, transform.position, Quaternion.identity);
                 Destroy(gameObject);
