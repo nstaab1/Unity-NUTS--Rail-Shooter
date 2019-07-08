@@ -781,7 +781,6 @@ GameObject:
   - component: {fileID: 4450927904410622}
   - component: {fileID: 33441852685024892}
   - component: {fileID: 23926864293675750}
-  - component: {fileID: -5123352217503294812}
   m_Layer: 0
   m_Name: SM_Veh_German_Tank_01
   m_TagString: Untagged
@@ -871,19 +870,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &-5123352217503294812
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325726345117900}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.8096004, y: 2.7005787, z: 8.49592}
-  m_Center: {x: 0, y: 1.6236253, z: 0.7102585}
 --- !u!1 &1346979511039492
 GameObject:
   m_ObjectHideFlags: 0

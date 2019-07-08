@@ -6,15 +6,22 @@ public class EnemyTank : MonoBehaviour
 {
 
     [SerializeField] GameObject destroyedVersion;
-    [SerializeField] GameObject aliveVersion;
     [SerializeField] GameObject deathFX;
 
-    bool isDead = false;
+    int scorePerhit = 1;
+    ScoreBoard scoreBoard;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        AddNonTriggerBoxCollider();
+        scoreBoard = FindObjectOfType<ScoreBoard>();
+        // TODO: How to instaniate our detroyed version when its needed? And should it generate its own Box Collider?
+    }
+
+    private void AddNonTriggerBoxCollider()
+    {
+        gameObject.AddComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -25,11 +32,11 @@ public class EnemyTank : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if(!isDead)
-        {
+            scoreBoard.ScoreHit(scorePerhit);
             deathFX.SetActive(true);
-            destroyedVersion.SetActive(true);
-            aliveVersion.SetActive(false);
-        }
+            Instantiate(deathFX, new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y, gameObject.transform.localPosition.z), gameObject.transform.rotation);
+            Instantiate(destroyedVersion, new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y, gameObject.transform.localPosition.z), gameObject.transform.rotation);
+            //destroyedVersion.SetActive(true);
+            Destroy(gameObject);
     }
 }

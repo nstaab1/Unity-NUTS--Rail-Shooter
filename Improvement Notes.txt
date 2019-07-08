@@ -1,0 +1,1 @@
+- Add special bombs pickup? To allow users to pickup a finite amount of bombs and use them on enemies.
